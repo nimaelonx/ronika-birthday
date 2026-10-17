@@ -7,9 +7,7 @@
   <title>Happy Birthday, Ronika!</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -51,9 +49,7 @@
       transition: transform .4s ease;
     }
 
-    .envelope:hover {
-      transform: translateY(-7px);
-    }
+    .envelope:hover { transform: translateY(-7px); }
 
     .back {
       position: absolute;
@@ -169,25 +165,16 @@
     .opened .letter {
       transform: translateY(-115px);
       transition-delay: .3s;
-    }
-
-    .opened .seal {
-      opacity: 0;
-    }
-
-    .opened .front {
-      z-index: 1;
-    }
-
-    .opened .letter {
       z-index: 2;
     }
+
+    .opened .seal { opacity: 0; }
+    .opened .front { z-index: 1; }
 
     .next {
       display: none;
       margin-top: 135px;
       color: #fff;
-      text-decoration: none;
       font: 11px Arial, sans-serif;
       letter-spacing: 4px;
       padding: 15px 22px;
@@ -220,6 +207,25 @@
 </head>
 
 <body>
+
+  <!-- First song: starts when the envelope is clicked -->
+  <audio id="birthdayMusic" preload="auto" loop>
+    <source src="./2_5325765670447644195.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- The remaining songs are ready for the music section -->
+  <audio id="music2" preload="none">
+    <source src="./For%20the%20First%20Time.mp3" type="audio/mpeg">
+  </audio>
+
+  <audio id="music3" preload="none">
+    <source src="./bedrott%20duskydemise%20(1).m4a" type="audio/mp4">
+  </audio>
+
+  <audio id="music4" preload="none">
+    <source src="./ha%20ha%20ha%20(1).m4a" type="audio/mp4">
+  </audio>
+
   <main class="scene">
     <div class="subtitle">A little birthday surprise</div>
 
@@ -252,12 +258,17 @@
     const envelope = document.getElementById("envelope");
     const hint = document.getElementById("hint");
     const next = document.getElementById("next");
+    const music = document.getElementById("birthdayMusic");
 
     function openEnvelope() {
       if (envelope.classList.contains("opened")) return;
 
       envelope.classList.add("opened");
       hint.textContent = "";
+
+      music.play().catch((error) => {
+        console.log("Music playback failed:", error);
+      });
     }
 
     envelope.addEventListener("click", openEnvelope);
@@ -273,5 +284,6 @@
       alert("The next chapter is coming soon...");
     });
   </script>
+
 </body>
 </html>
