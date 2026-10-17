@@ -1,4 +1,4 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,19 +7,15 @@
   <title>Happy Birthday, Ronika!</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
       min-height: 100vh;
-      min-height: 100dvh;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow-x: hidden;
-      overflow-y: auto;
+      overflow: hidden;
       font-family: Georgia, serif;
       background:
         radial-gradient(ellipse at 50% 35%, #66656b, transparent 65%),
@@ -29,61 +25,37 @@
 
     .scene {
       text-align: center;
-      padding: 30px 16px;
+      padding: 24px;
       perspective: 1000px;
       width: 100%;
-      max-width: 520px;
-      margin: auto;
     }
 
     .subtitle {
       font-family: Arial, sans-serif;
       font-size: 10px;
-      letter-spacing: 4px;
-      line-height: 1.8;
+      letter-spacing: 5px;
       color: #e9cbd3;
-      margin: 0 auto 32px;
+      margin-bottom: 45px;
       text-transform: uppercase;
-      transition: opacity .5s ease, transform .5s ease;
-    }
-
-    .scene.opened .subtitle {
-      opacity: 0;
-      transform: translateY(-10px);
-      pointer-events: none;
-    }
-
-    .glass {
-      position: relative;
-      width: 100%;
-      max-width: 440px;
-      margin: 0 auto;
-      padding: 40px 16px 26px;
-      background: #ffffff0a;
-      border: 1px solid #ffffff28;
-      border-radius: 22px;
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      box-shadow: 0 20px 60px #0002;
     }
 
     .envelope {
       position: relative;
-      width: min(340px, 100%);
+      width: min(340px, 84vw);
       height: 220px;
       margin: 0 auto;
       cursor: pointer;
-      isolation: isolate;
-      filter: drop-shadow(0 25px 25px #10080c66);
-      -webkit-tap-highlight-color: transparent;
+      filter: drop-shadow(0 25px 35px #10080c88);
+      transition: transform .4s ease;
     }
+
+    .envelope:hover { transform: translateY(-7px); }
 
     .back {
       position: absolute;
       inset: 0;
       border-radius: 9px;
       background: linear-gradient(135deg, #fffaf8, #d8cbd0);
-      z-index: 0;
     }
 
     .letter {
@@ -98,10 +70,9 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 12px;
+      padding: 15px;
       border: 1px solid #d7a6b5;
       border-radius: 4px;
-      z-index: 1;
       transition: transform .8s ease;
     }
 
@@ -133,7 +104,6 @@
       clip-path: polygon(0 0, 50% 53%, 100% 0, 100% 100%, 0 100%);
       z-index: 2;
       border-bottom: 2px solid #e8c5ce;
-      pointer-events: none;
     }
 
     .flap {
@@ -141,12 +111,10 @@
       inset: 0;
       background: linear-gradient(160deg, #fff9fa, #d7c2cb);
       clip-path: polygon(0 0, 100% 0, 50% 58%);
-      transform-origin: top center;
+      transform-origin: top;
       transition: transform .8s ease;
       z-index: 3;
       backface-visibility: hidden;
-      -webkit-backface-visibility: hidden;
-      pointer-events: none;
     }
 
     .seal {
@@ -166,59 +134,57 @@
       font-size: 20px;
       box-shadow: 0 0 20px #ffcfdf55;
       transition: opacity .3s ease;
-      pointer-events: none;
+    }
+
+    .glass {
+      position: relative;
+      padding: 45px 20px 28px;
+      margin: 0 auto;
+      max-width: 440px;
+      background: #ffffff0a;
+      border: 1px solid #ffffff28;
+      border-radius: 22px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 20px 60px #0002;
     }
 
     .hint {
-      margin-top: 28px;
+      margin-top: 32px;
       font: 11px Arial, sans-serif;
       letter-spacing: 3px;
-      line-height: 1.8;
       color: #f0dce2;
       animation: pulse 2s infinite;
-      transition: opacity .4s ease;
     }
 
-    .scene.opened .hint {
-      opacity: 0;
-      animation: none;
-    }
-
-    .envelope.opened .flap {
+    .opened .flap {
       transform: rotateX(180deg);
       z-index: 0;
     }
 
-    .envelope.opened .letter {
+    .opened .letter {
       transform: translateY(-115px);
       transition-delay: .3s;
-      z-index: 3;
-    }
-
-    .envelope.opened .seal {
-      opacity: 0;
-    }
-
-    .envelope.opened .front {
       z-index: 2;
     }
 
+    .opened .seal { opacity: 0; }
+    .opened .front { z-index: 1; }
+
     .next {
       display: none;
-      margin: 35px auto 0;
-      max-width: 100%;
+      margin-top: 135px;
       color: #fff;
       font: 11px Arial, sans-serif;
-      letter-spacing: 3px;
-      line-height: 1.7;
-      padding: 15px 20px;
+      letter-spacing: 4px;
+      padding: 15px 22px;
       border: 1px solid #d98ba2;
       border-radius: 30px;
       background: #8d234333;
       cursor: pointer;
     }
 
-    .scene.opened .next {
+    .opened ~ .next {
       display: inline-block;
       animation: fadeIn 1.5s ease both;
     }
@@ -228,59 +194,26 @@
     }
 
     @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(12px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     @media (max-width: 400px) {
-      .scene {
-        padding: 24px 14px;
-      }
-
-      .glass {
-        padding: 32px 12px 24px;
-      }
-
-      .subtitle {
-        margin-bottom: 26px;
-        letter-spacing: 3px;
-      }
-
-      .envelope {
-        height: 190px;
-      }
-
-      .envelope.opened .letter {
-        transform: translateY(-95px);
-      }
-
-      .next {
-        letter-spacing: 2px;
-        padding: 13px 15px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
-      }
+      .envelope { height: 190px; }
+      .glass { padding-top: 35px; }
+      .opened .letter { transform: translateY(-95px); }
     }
   </style>
 </head>
 
 <body>
 
+  <!-- First song: starts when the envelope is clicked -->
   <audio id="birthdayMusic" preload="auto" loop>
     <source src="./2_5325765670447644195.mp3" type="audio/mpeg">
   </audio>
 
+  <!-- The remaining songs are ready for the music section -->
   <audio id="music2" preload="none">
     <source src="./For%20the%20First%20Time.mp3" type="audio/mpeg">
   </audio>
@@ -293,14 +226,12 @@
     <source src="./ha%20ha%20ha%20(1).m4a" type="audio/mp4">
   </audio>
 
-  <main class="scene" id="scene">
+  <main class="scene">
     <div class="subtitle">A little birthday surprise</div>
 
     <section class="glass">
-      <div class="envelope" id="envelope"
-           role="button" tabindex="0"
-           aria-label="Open the birthday envelope">
-
+      <div class="envelope" id="envelope" role="button"
+           tabindex="0" aria-label="Open the birthday envelope">
         <div class="back"></div>
 
         <div class="letter">
@@ -324,7 +255,6 @@
   </main>
 
   <script>
-    const scene = document.getElementById("scene");
     const envelope = document.getElementById("envelope");
     const hint = document.getElementById("hint");
     const next = document.getElementById("next");
@@ -334,7 +264,6 @@
       if (envelope.classList.contains("opened")) return;
 
       envelope.classList.add("opened");
-      scene.classList.add("opened");
       hint.textContent = "";
 
       music.play().catch((error) => {
@@ -358,4 +287,3 @@
 
 </body>
 </html>
-```
