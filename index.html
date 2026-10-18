@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#29282d">
-<title>!تولدت مبارک رونیکاااا</title>
+<title>Ronikaaaaaa</title>
 
 <style>
 * { box-sizing: border-box; }
@@ -393,6 +393,93 @@ button { font: inherit; }
   font-size: 15px;
 }
 
+.upload-track { cursor: default; }
+
+.upload-label {
+  display: inline-flex;
+  align-self: flex-start;
+  width: fit-content;
+  margin-top: 5px;
+  padding: 8px 11px;
+  border: 1px solid #d98ba277;
+  border-radius: 20px;
+  color: #f0c3d0;
+  background: #8d234322;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.audio-file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  clip-path: inset(50%);
+}
+
+.track-play {
+  border: 0;
+  background: transparent;
+  color: #e4a5b8;
+  font: inherit;
+  font-size: 15px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.birthday-message-card {
+  margin: 28px auto 0;
+  max-width: 560px;
+  padding: 28px 22px;
+  border: 1px solid #8b3449aa;
+  border-radius: 20px;
+  color: #fff;
+  background: linear-gradient(135deg, #0a0a0cbb, #250811aa);
+  box-shadow: 0 0 28px #ff000022, inset 0 1px 0 #ffffff12;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.message-heart { font-size: 34px; color: #ff647e; }
+.birthday-message-card h2 { color: #ff8297; font-size: clamp(22px, 5vw, 29px); }
+.birthday-message-card p { color: #f5dada; font: 14px/2 Arial, sans-serif; }
+.message-cake { margin-top: 10px; font-size: 28px; }
+
+.glass-player {
+  margin-top: 22px;
+  padding: 20px 18px;
+  border: 1px solid #ffffff2b;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #ffffff12, #ffffff05);
+  box-shadow: 0 14px 38px #0003, inset 0 1px 0 #ffffff12;
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  text-align: left;
+}
+.player-heading { display: flex; align-items: center; gap: 12px; }
+.player-disc {
+  width: 44px; height: 44px; flex: 0 0 44px; border-radius: 50%;
+  display: grid; place-items: center; color: #f2b4c5;
+  border: 1px solid #d98ba277;
+  background: radial-gradient(circle, #8d234366, #161216 70%);
+  box-shadow: 0 0 18px #d98ba222;
+}
+.player-meta { min-width: 0; flex: 1; }
+.player-meta strong { display: block; font: 13px Arial, sans-serif; overflow-wrap: anywhere; }
+.player-meta small { display: block; margin-top: 5px; color: #b9a7af; font: 10px Arial, sans-serif; }
+.player-main-button {
+  width: 42px; height: 42px; border-radius: 50%;
+  border: 1px solid #e6a2b5aa; color: white;
+  background: linear-gradient(145deg, #a83b59, #54172d);
+  cursor: pointer; font-size: 16px;
+}
+.player-timeline { display: grid; grid-template-columns: 38px minmax(0, 1fr) 38px; gap: 9px; align-items: center; margin-top: 18px; }
+.player-time { color: #cbb8c1; font: 10px Arial, sans-serif; font-variant-numeric: tabular-nums; }
+#seekBar { width: 100%; accent-color: #d98ba2; cursor: pointer; }
+.player-caption { margin-top: 9px; color: #a99ba1; font: 10px/1.7 Arial, sans-serif; text-align: center; }
+
 .music-note {
   min-height: 18px;
   margin-top: 20px;
@@ -463,7 +550,7 @@ button { font: inherit; }
 
 <body>
 
-<!-- Keep these four audio files in the same repository folder as index.html -->
+<!-- Keep all six audio tracks in the same repository folder as index.html -->
 <audio id="birthdayMusic" preload="auto" loop>
   <source src="./2_5325765670447644195.mp3" type="audio/mpeg">
 </audio>
@@ -473,12 +560,16 @@ button { font: inherit; }
 </audio>
 
 <audio id="music3" preload="none">
-  <source src="./bedrott%20duskydemise%20(1).m4a" type="audio/mp4">
+  <source src="./2_5325765670447644195.mp3" type="audio/mpeg">
 </audio>
 
 <audio id="music4" preload="none">
-  <source src="./ha%20ha%20ha%20(1).m4a" type="audio/mp4">
+  <source src="./4_5909008777406847238%20(2).mp3" type="audio/mpeg">
 </audio>
+
+<!-- Tracks 5 and 6 can be selected by the visitor from their own device. -->
+<audio id="music5" preload="none"></audio>
+<audio id="music6" preload="none"></audio>
 
 <main class="scene" id="scene">
   <div class="subtitle">A little birthday surprise</div>
@@ -514,14 +605,14 @@ button { font: inherit; }
 <section class="experience" id="experience">
 
   <header class="hero">
-    <p class="eyebrow">for roki </p>
+    <p class="eyebrow">fot roki</p>
     <h1>Happy Birthday,<br><span>Ronika.</span></h1>
-    <div style="text-align:center; background:linear-gradient(135deg,#0a0a0a,#250808); padding:30px; border:1px solid #8b0000; border-radius:20px; color:#fff; font-family:Georgia,serif; box-shadow:0 0 25px #ff000033;">
-  <div style="font-size:42px;">❤️</div>
-  <h1 style="color:#ff4d5a; font-size:28px; letter-spacing:2px;">Happy Birthday, Ronika</h1>
-  <p style="font-size:16px; color:#f5dada; line-height:2;">I'm sorry I forgot your birthday.<br>Wishing you a beautiful year filled with happiness and unforgettable moments.</p>
-  <div style="font-size:35px;">🎂</div>
-</div>
+    <div class="birthday-message-card">
+      <div class="message-heart">♥</div>
+      <h2>Happy Birthday, Ronika</h2>
+      <p>I'm sorry I forgot your birthday.<br>Wishing you a beautiful year filled with happiness and unforgettable moments.</p>
+      <div class="message-cake">🎂</div>
+    </div>
     <div class="star">✦</div>
   </header>
 
@@ -553,44 +644,66 @@ button { font: inherit; }
   <section class="music-section">
     <p class="eyebrow">THE SOUNDTRACK</p>
     <h2>Press play.</h2>
-    <p class="section-desc">Four tracks, one little birthday collection.</p>
+    <p class="section-desc">Six tracks, one little birthday collection.</p>
 
     <div class="track-list">
       <button class="track active" data-track="birthdayMusic">
         <span class="track-number">01</span>
-        <span class="track-info">
-          <strong>Birthday soundtrack</strong>
-          <small>First track</small>
-        </span>
+        <span class="track-info"><strong>Birthday soundtrack</strong><small>Track one</small></span>
         <span class="track-action">♫</span>
       </button>
-
       <button class="track" data-track="music2">
         <span class="track-number">02</span>
-        <span class="track-info">
-          <strong>For the First Time</strong>
-          <small>Track two</small>
-        </span>
+        <span class="track-info"><strong>For the First Time</strong><small>Track two</small></span>
         <span class="track-action">▶</span>
       </button>
-
       <button class="track" data-track="music3">
         <span class="track-number">03</span>
-        <span class="track-info">
-          <strong>Bedrott</strong>
-          <small>Track three</small>
-        </span>
+        <span class="track-info"><strong>Track Three</strong><small>2_5325765670447644195.mp3</small></span>
         <span class="track-action">▶</span>
       </button>
-
       <button class="track" data-track="music4">
         <span class="track-number">04</span>
-        <span class="track-info">
-          <strong>Ha Ha Ha</strong>
-          <small>Track four</small>
-        </span>
+        <span class="track-info"><strong>Track Four</strong><small>4_5909008777406847238 (2).mp3</small></span>
         <span class="track-action">▶</span>
       </button>
+      <div class="track upload-track">
+        <span class="track-number">05</span>
+        <span class="track-info">
+          <strong>Choose your own fifth song</strong>
+          <small id="music5Name">No song selected yet</small>
+          <label class="upload-label" for="music5File">＋ Choose audio file</label>
+          <input class="audio-file-input" id="music5File" type="file" accept="audio/*">
+        </span>
+        <button class="track-play" type="button" data-play="music5" aria-label="Play fifth song">▶</button>
+      </div>
+      <div class="track upload-track">
+        <span class="track-number">06</span>
+        <span class="track-info">
+          <strong>Choose your own sixth song</strong>
+          <small id="music6Name">No song selected yet</small>
+          <label class="upload-label" for="music6File">＋ Choose audio file</label>
+          <input class="audio-file-input" id="music6File" type="file" accept="audio/*">
+        </span>
+        <button class="track-play" type="button" data-play="music6" aria-label="Play sixth song">▶</button>
+      </div>
+    </div>
+
+    <div class="glass-player" aria-label="Audio player">
+      <div class="player-heading">
+        <div class="player-disc">♫</div>
+        <div class="player-meta">
+          <strong id="playerTrackTitle">Birthday soundtrack</strong>
+          <small id="playerStatus">Ready to play</small>
+        </div>
+        <button class="player-main-button" id="playerToggle" type="button" aria-label="Play or pause">▶</button>
+      </div>
+      <div class="player-timeline">
+        <span class="player-time" id="currentTime">0:00</span>
+        <input id="seekBar" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek through song">
+        <span class="player-time" id="durationTime">0:00</span>
+      </div>
+      <div class="player-caption">Drag the slider to jump to any part of the song</div>
     </div>
 
     <p class="music-note" id="musicNote">
@@ -613,15 +726,56 @@ const hint = document.getElementById("hint");
 const next = document.getElementById("next");
 const experience = document.getElementById("experience");
 const musicNote = document.getElementById("musicNote");
+const playerToggle = document.getElementById("playerToggle");
+const playerTrackTitle = document.getElementById("playerTrackTitle");
+const playerStatus = document.getElementById("playerStatus");
+const seekBar = document.getElementById("seekBar");
+const currentTimeLabel = document.getElementById("currentTime");
+const durationTimeLabel = document.getElementById("durationTime");
 
 const allMusic = [
   document.getElementById("birthdayMusic"),
   document.getElementById("music2"),
   document.getElementById("music3"),
-  document.getElementById("music4")
+  document.getElementById("music4"),
+  document.getElementById("music5"),
+  document.getElementById("music6")
 ];
 
 let opened = false;
+let currentAudio = document.getElementById("birthdayMusic");
+let currentTrackRow = document.querySelector('.track[data-track="birthdayMusic"]');
+let isSeeking = false;
+
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds) || seconds < 0) return "0:00";
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+  return `${mins}:${secs}`;
+}
+
+function refreshPlayer() {
+  if (!currentAudio) return;
+  const duration = currentAudio.duration;
+  currentTimeLabel.textContent = formatTime(currentAudio.currentTime);
+  durationTimeLabel.textContent = formatTime(duration);
+  if (!isSeeking) {
+    seekBar.value = Number.isFinite(duration) && duration > 0
+      ? Math.round((currentAudio.currentTime / duration) * 1000) : 0;
+  }
+  playerToggle.textContent = currentAudio.paused ? "▶" : "Ⅱ";
+  playerStatus.textContent = currentAudio.paused ? "Paused / ready" : "Now playing";
+}
+
+function chooseAudio(audio, row, title) {
+  currentAudio = audio;
+  currentTrackRow = row;
+  playerTrackTitle.textContent = title;
+  seekBar.value = 0;
+  currentTimeLabel.textContent = "0:00";
+  durationTimeLabel.textContent = formatTime(audio.duration);
+  refreshPlayer();
+}
 
 function openEnvelope() {
   if (opened) return;
@@ -658,36 +812,118 @@ next.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "instant" });
 });
 
-const tracks = document.querySelectorAll(".track");
+const tracks = document.querySelectorAll(".track[data-track]");
+const trackButtons = document.querySelectorAll(".track[data-track], .track-play");
+const selectedFileUrls = {};
+
+function setActiveTrack(trackElement) {
+  document.querySelectorAll(".track").forEach((item) => {
+    item.classList.remove("active");
+    const action = item.querySelector(".track-action, .track-play");
+    if (action) action.textContent = "▶";
+  });
+  trackElement.classList.add("active");
+  const action = trackElement.querySelector(".track-action, .track-play");
+  if (action) action.textContent = "♫";
+}
+
+async function playTrack(trackElement, trackId) {
+  const selectedMusic = document.getElementById(trackId);
+  if (!selectedMusic || !selectedMusic.getAttribute("src") && !selectedMusic.querySelector("source")?.getAttribute("src")) {
+    musicNote.textContent = "Choose an audio file for this track first.";
+    return;
+  }
+
+  allMusic.forEach((song) => {
+    if (song !== selectedMusic) {
+      song.pause();
+      song.currentTime = 0;
+    }
+  });
+
+  setActiveTrack(trackElement);
+  const title = trackElement.querySelector("strong")?.textContent || "Your song";
+  chooseAudio(selectedMusic, trackElement, title);
+  try {
+    await selectedMusic.play();
+    musicNote.textContent = "Now playing: " + title;
+    refreshPlayer();
+  } catch (error) {
+    musicNote.textContent = "Couldn't play this track. Check the audio file.";
+    console.log("Audio playback failed:", error);
+  }
+}
 
 tracks.forEach((track) => {
-  track.addEventListener("click", async () => {
-    const selectedMusic = document.getElementById(track.dataset.track);
+  track.addEventListener("click", () => playTrack(track, track.dataset.track));
+});
 
-    allMusic.forEach((song) => {
-      if (song !== selectedMusic) {
-        song.pause();
-        song.currentTime = 0;
-      }
+document.querySelectorAll(".track-play").forEach((button) => {
+  button.addEventListener("click", () => {
+    const row = button.closest(".upload-track");
+    playTrack(row, button.dataset.play);
+  });
+});
+
+[["music5File", "music5", "music5Name"], ["music6File", "music6", "music6Name"]].forEach(([inputId, audioId, nameId]) => {
+  const fileInput = document.getElementById(inputId);
+  const audio = document.getElementById(audioId);
+  const nameLabel = document.getElementById(nameId);
+
+  fileInput.addEventListener("change", () => {
+    const file = fileInput.files && fileInput.files[0];
+    if (!file) return;
+    if (selectedFileUrls[audioId]) URL.revokeObjectURL(selectedFileUrls[audioId]);
+    selectedFileUrls[audioId] = URL.createObjectURL(file);
+    audio.src = selectedFileUrls[audioId];
+    nameLabel.textContent = file.name;
+    musicNote.textContent = "Added: " + file.name + " — press play to listen.";
+  });
+});
+
+playerToggle.addEventListener("click", async () => {
+  if (!currentAudio) return;
+  if (!currentAudio.paused) {
+    currentAudio.pause();
+    refreshPlayer();
+    return;
+  }
+  if (!currentAudio.getAttribute("src") && !currentAudio.querySelector("source")?.getAttribute("src")) {
+    musicNote.textContent = "Choose a song first, then press play.";
+    return;
+  }
+  try {
+    await currentAudio.play();
+    musicNote.textContent = "Now playing: " + playerTrackTitle.textContent;
+  } catch (error) {
+    musicNote.textContent = "Couldn't play this track. Check the audio file.";
+    console.log("Audio playback failed:", error);
+  }
+  refreshPlayer();
+});
+
+seekBar.addEventListener("input", () => {
+  isSeeking = true;
+  const duration = currentAudio?.duration;
+  if (Number.isFinite(duration) && duration > 0) {
+    currentTimeLabel.textContent = formatTime((Number(seekBar.value) / 1000) * duration);
+  }
+});
+
+seekBar.addEventListener("change", () => {
+  const duration = currentAudio?.duration;
+  if (Number.isFinite(duration) && duration > 0) {
+    currentAudio.currentTime = (Number(seekBar.value) / 1000) * duration;
+  }
+  isSeeking = false;
+  refreshPlayer();
+});
+
+allMusic.forEach((audio) => {
+  ["timeupdate", "loadedmetadata", "durationchange", "play", "pause", "ended"].forEach((eventName) => {
+    audio.addEventListener(eventName, () => {
+      if (audio === currentAudio) refreshPlayer();
     });
-
-    tracks.forEach((item) => {
-      item.classList.remove("active");
-      item.querySelector(".track-action").textContent = "▶";
-    });
-
-    track.classList.add("active");
-    track.querySelector(".track-action").textContent = "♫";
-
-    try {
-      await selectedMusic.play();
-      musicNote.textContent = "Now playing: " +
-        track.querySelector("strong").textContent;
-    } catch (error) {
-      musicNote.textContent =
-        "Couldn't play this track. Check the audio file name.";
-      console.log("Audio playback failed:", error);
-    }
   });
 });
 </script>
