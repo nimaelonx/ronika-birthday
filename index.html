@@ -491,8 +491,7 @@ button { font: inherit; }
   padding: 25px 10px 40px;
 }
 
-.birthday-footer .footer-star { margin: 0 0 20px; color: #43baff; font-size: 25px; display: flex; justify-content: center; filter: drop-shadow(0 0 9px #168cff80); }
-.fingerprint-icon { width: 42px; height: 42px; display: block; }
+.birthday-footer .footer-star { margin: 0 0 20px; }
 
 .birthday-footer p {
   color: #d98ba2;
@@ -661,6 +660,55 @@ button { font: inherit; }
   .mood-answer { transition: none; }
 }
 
+
+
+/* RONIKA PHOTO DIARY — scoped to the gallery only */
+.gallery-section {
+  position: relative; isolation: isolate; overflow: hidden;
+  padding: 34px 18px 38px; border: 1px solid rgba(239,126,171,.2);
+  border-radius: 26px; background: rgba(15,7,13,.68);
+  box-shadow: 0 20px 65px rgba(0,0,0,.22);
+}
+.gallery-section::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(ellipse at 10% 20%,rgba(153,29,77,.30),transparent 48%),
+              radial-gradient(ellipse at 90% 75%,rgba(213,87,151,.16),transparent 48%);
+}
+.gallery-section .eyebrow { color:#f08bb6; text-shadow:0 0 12px #f04c9b66; }
+.gallery-section h2 { margin:12px 0 25px; color:#f8dce9; font-size:clamp(28px,6vw,39px); text-shadow:0 0 24px #d9438750; }
+.photo-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:13px; margin-top:26px; align-items:start; }
+.photo-slot {
+  position:relative; min-width:0; aspect-ratio:3/4; padding:5px; overflow:hidden;
+  display:block; border:1px solid rgba(255,142,190,.42); border-radius:15px;
+  background:linear-gradient(145deg,#361320,#100b11 75%);
+  box-shadow:0 8px 22px #0005,inset 0 0 12px #f05c9920;
+  cursor:zoom-in; transition:transform .35s ease,box-shadow .35s ease,border-color .35s ease;
+}
+.photo-slot:nth-child(4n + 1) { transform:translateY(12px) rotate(-1.5deg); }
+.photo-slot:nth-child(4n + 2) { transform:translateY(-2px) rotate(1deg); }
+.photo-slot:nth-child(4n + 3) { transform:translateY(17px) rotate(-.8deg); }
+.photo-slot:nth-child(4n) { transform:translateY(4px) rotate(1.4deg); }
+.photo-slot img { position:absolute; inset:0; width:100%; height:100%; display:block; object-fit:cover; border-radius:10px; transition:transform .5s ease,filter .4s ease; }
+.photo-slot::after { content:""; position:absolute; inset:0; pointer-events:none; border-radius:10px; background:linear-gradient(180deg,#18040a00 55%,#18040a55); }
+.photo-slot .unicorn { position:absolute; z-index:2; right:7px; bottom:5px; font-size:20px; filter:drop-shadow(0 0 5px #ff66bb) drop-shadow(0 0 12px #b34dff); pointer-events:none; }
+@media (hover:hover) {
+ .photo-slot:hover { z-index:3; transform:translateY(-5px) rotate(0) scale(1.035); border-color:#ff9bc9; box-shadow:0 0 24px #e8499140,0 14px 30px #0006; }
+ .photo-slot:hover img { transform:scale(1.07); filter:saturate(1.08); }
+}
+.photo-lightbox { position:fixed; inset:0; z-index:10000; display:none; align-items:center; justify-content:center; padding:22px; background:rgba(5,3,8,.91); backdrop-filter:blur(14px); }
+.photo-lightbox.visible { display:flex; }
+.photo-lightbox img { display:block; max-width:min(900px,90vw); max-height:82dvh; object-fit:contain; border:1px solid #ef8fba99; border-radius:15px; box-shadow:0 0 38px #db448944; }
+.photo-lightbox button { position:absolute; top:18px; right:20px; width:44px; height:44px; border:1px solid #f3a1c766; border-radius:50%; color:white; background:#32101fcc; font-size:25px; cursor:pointer; }
+@media(max-width:600px) {
+ .gallery-section { padding:29px 12px 34px; }
+ .photo-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; padding:0 5px 8px; }
+ .photo-slot:nth-child(4n + 1) { transform:translateY(7px) rotate(-1deg); }
+ .photo-slot:nth-child(4n + 2) { transform:translateY(0) rotate(1deg); }
+ .photo-slot:nth-child(4n + 3) { transform:translateY(9px) rotate(-.7deg); }
+ .photo-slot:nth-child(4n) { transform:translateY(2px) rotate(.8deg); }
+}
+@media(prefers-reduced-motion:reduce) { .photo-slot,.photo-slot img { transition:none; } }
+
 </style>
 </head>
 
@@ -747,29 +795,25 @@ button { font: inherit; }
     <div class="star">✦</div>
   </header>
 
-  <section class="gallery-section">
-    <p class="eyebrow">🤳 &amp; 👾</p>
-    <h2>A little photo</h2>
-
+  <section class="gallery-section" id="photoGallery">
+    <p class="eyebrow">✦ A LITTLE PHOTO DIARY ✦</p>
+    <h2>Memories &amp; Moments</h2>
     <div class="photo-grid">
-      <div class="photo-slot">
-        <span>PHOTO 01</span>
-        <small>Your photo goes here</small>
-      </div>
-      <div class="photo-slot">
-        <span>PHOTO 02</span>
-        <small>Your photo goes here</small>
-      </div>
-      <div class="photo-slot">
-        <span>PHOTO 03</span>
-        <small>Your photo goes here</small>
-      </div>
-      <div class="photo-slot">
-        <span>PHOTO 04</span>
-        <small>Your photo goes here</small>
-      </div>
+      <button class="photo-slot" type="button" aria-label="View photo 1"><img src="./images/photo1.jpg" alt="Photo 1" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 2"><img src="./images/photo2.jpg" alt="Photo 2" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 3"><img src="./images/photo3.jpg" alt="Photo 3" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 4"><img src="./images/photo4.jpg" alt="Photo 4" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 5"><img src="./images/photo5.jpg" alt="Photo 5" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 6"><img src="./images/photo6.jpg" alt="Photo 6" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 7"><img src="./images/photo7.jpg" alt="Photo 7" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
+      <button class="photo-slot" type="button" aria-label="View photo 8"><img src="./images/photo8.jpg" alt="Photo 8" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
     </div>
   </section>
+
+  <div class="photo-lightbox" id="photoLightbox" aria-label="Expanded photo">
+    <button type="button" id="closePhoto" aria-label="Close photo">×</button>
+    <img id="expandedPhoto" src="" alt="Expanded photo">
+  </div>
 
   <section class="music-section">
     <p class="eyebrow">THE SOUNDTRACK</p>
@@ -842,21 +886,9 @@ button { font: inherit; }
   </section>
 
   <footer class="birthday-footer">
-    <div class="footer-star" aria-label="Blue fingerprint" title="Fingerprint">
-      <svg class="fingerprint-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g stroke="#43baff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M24 5.5c-9.4 0-17 7.4-17 16.6 0 3.1.5 6.4 1.5 9.7"/>
-          <path d="M24 10.5c-6.7 0-12 5.2-12 11.6 0 4.8 1 9.5 2.8 13.8"/>
-          <path d="M24 15.5c-3.9 0-7 3-7 6.7 0 6.4 1.4 12.6 4.1 18.1"/>
-          <path d="M24 20.5c-1.1 0-2 .8-2 1.9 0 5.7 1.2 11.3 3.7 16.4"/>
-          <path d="M24 5.5c9.4 0 17 7.4 17 16.6 0 7.1-1.5 13.7-4.5 19.8"/>
-          <path d="M24 10.5c6.7 0 12 5.2 12 11.6 0 6.1-1.1 11.9-3.5 17.3"/>
-          <path d="M24 15.5c3.9 0 7 3 7 6.7 0 4.8-.8 9.5-2.5 13.9"/>
-        </g>
-      </svg>
-    </div>
+    <div class="footer-star">✦</div>
     <p>MADE BY NIMA</p>
-    <small>a little gift for you</small>
+    <small>A little birthday world for Ronika.</small>
   </footer>
 
 </section>
@@ -1119,6 +1151,30 @@ allMusic.forEach((audio) => {
       playerStatus.textContent = "Audio load error";
     }
   });
+});
+
+
+// Gallery photo lightbox
+const photoLightbox = document.getElementById("photoLightbox");
+const expandedPhoto = document.getElementById("expandedPhoto");
+const closePhoto = document.getElementById("closePhoto");
+document.querySelectorAll(".photo-slot img").forEach((photo) => {
+  photo.closest(".photo-slot").addEventListener("click", () => {
+    expandedPhoto.src = photo.src;
+    expandedPhoto.alt = photo.alt;
+    photoLightbox.classList.add("visible");
+  });
+});
+function hideExpandedPhoto() {
+  photoLightbox.classList.remove("visible");
+  expandedPhoto.src = "";
+}
+closePhoto.addEventListener("click", hideExpandedPhoto);
+photoLightbox.addEventListener("click", (event) => {
+  if (event.target === photoLightbox) hideExpandedPhoto();
+});
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") hideExpandedPhoto();
 });
 </script>
 
