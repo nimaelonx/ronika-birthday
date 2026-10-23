@@ -30,6 +30,28 @@ body {
   color: white;
 }
 
+/* Soft, slowly-shifting color haze as you scroll through the birthday page */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -18%;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 18% 22%, #8d234333, transparent 42%),
+    radial-gradient(ellipse at 82% 64%, #6d315b2b, transparent 45%),
+    radial-gradient(ellipse at 50% 95%, #254c5b22, transparent 42%);
+  background-size: 140% 140%;
+  animation: birthdayHaze 18s ease-in-out infinite alternate;
+  transform: translate3d(0, calc(var(--scroll-progress, 0) * -55px), 0);
+  transition: transform .35s ease-out;
+}
+@keyframes birthdayHaze {
+  0% { background-position: 0% 0%, 100% 40%, 50% 100%; filter: hue-rotate(0deg); }
+  50% { background-position: 60% 30%, 20% 70%, 80% 40%; filter: hue-rotate(12deg); }
+  100% { background-position: 100% 60%, 0% 100%, 20% 0%; filter: hue-rotate(-10deg); }
+}
+
 button { font: inherit; }
 
 .scene {
@@ -690,11 +712,11 @@ button { font: inherit; }
 </audio>
 
 <audio id="music3" preload="none">
-  <source src="./2_5325765670447644195.mp3" type="audio/mpeg">
+  <source src="./notion%20%5B%20slowed%20%2B%20reverb%20%5D%20%20the%20rare%20occasions.m4a" type="audio/mp4">
 </audio>
 
 <audio id="music4" preload="none">
-  <source src="./4_5909008777406847238%20(2).mp3" type="audio/mpeg">
+  <source src="./03.%20SoFaygo%20-%20Good%20Day.flac" type="audio/flac">
 </audio>
 
 <!-- Tracks 5 and 6 can be selected by the visitor from their own device. -->
@@ -788,12 +810,12 @@ button { font: inherit; }
       </button>
       <button class="track" data-track="music3">
         <span class="track-number">03</span>
-        <span class="track-info"><strong>Track Three</strong><small>2_5325765670447644195.mp3</small></span>
+        <span class="track-info"><strong>notion [ slowed + reverb ] — the rare occasions</strong><small>notion [ slowed + reverb ]   the rare occasions.m4a</small></span>
         <span class="track-action">▶</span>
       </button>
       <button class="track" data-track="music4">
         <span class="track-number">04</span>
-        <span class="track-info"><strong>Track Four</strong><small>4_5909008777406847238 (2).mp3</small></span>
+        <span class="track-info"><strong>SoFaygo — Good Day</strong><small>03. SoFaygo - Good Day.flac</small></span>
         <span class="track-action">▶</span>
       </button>
       <div class="track upload-track">
@@ -851,6 +873,16 @@ button { font: inherit; }
 </div>
 
 <script>
+
+// Update the background haze based on how far down the page has been scrolled.
+function updateScrollHaze() {
+  const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
+  const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
+  document.documentElement.style.setProperty("--scroll-progress", progress.toFixed(3));
+}
+window.addEventListener("scroll", updateScrollHaze, { passive: true });
+window.addEventListener("resize", updateScrollHaze);
+updateScrollHaze();
 
 const moodScreen = document.getElementById("moodScreen");
 const birthdaySite = document.getElementById("birthdaySite");
