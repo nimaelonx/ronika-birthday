@@ -491,7 +491,8 @@ button { font: inherit; }
   padding: 25px 10px 40px;
 }
 
-.birthday-footer .footer-star { margin: 0 0 20px; }
+.birthday-footer .footer-star { margin: 0 0 20px; color: #43baff; font-size: 25px; display: flex; justify-content: center; filter: drop-shadow(0 0 9px #168cff80); }
+.fingerprint-icon { width: 42px; height: 42px; display: block; }
 
 .birthday-footer p {
   color: #d98ba2;
@@ -841,7 +842,19 @@ button { font: inherit; }
   </section>
 
   <footer class="birthday-footer">
-    <div class="footer-star">✦</div>
+    <div class="footer-star" aria-label="Blue fingerprint" title="Fingerprint">
+      <svg class="fingerprint-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <g stroke="#43baff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M24 5.5c-9.4 0-17 7.4-17 16.6 0 3.1.5 6.4 1.5 9.7"/>
+          <path d="M24 10.5c-6.7 0-12 5.2-12 11.6 0 4.8 1 9.5 2.8 13.8"/>
+          <path d="M24 15.5c-3.9 0-7 3-7 6.7 0 6.4 1.4 12.6 4.1 18.1"/>
+          <path d="M24 20.5c-1.1 0-2 .8-2 1.9 0 5.7 1.2 11.3 3.7 16.4"/>
+          <path d="M24 5.5c9.4 0 17 7.4 17 16.6 0 7.1-1.5 13.7-4.5 19.8"/>
+          <path d="M24 10.5c6.7 0 12 5.2 12 11.6 0 6.1-1.1 11.9-3.5 17.3"/>
+          <path d="M24 15.5c3.9 0 7 3 7 6.7 0 4.8-.8 9.5-2.5 13.9"/>
+        </g>
+      </svg>
+    </div>
     <p>MADE BY NIMA</p>
     <small>a little gift for you</small>
   </footer>
