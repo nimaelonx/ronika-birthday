@@ -489,15 +489,20 @@ button { font: inherit; }
 
 .birthday-footer {
   padding: 25px 10px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.birthday-footer .footer-star { margin: 0 0 20px; color: #43baff; font-size: 25px; display: flex; justify-content: center; filter: drop-shadow(0 0 9px #168cff80); }
+.birthday-footer .footer-star { margin: 0 auto 14px; color: #43baff; font-size: 25px; display: flex; justify-content: center; filter: drop-shadow(0 0 9px #168cff80); }
 .fingerprint-icon { width: 42px; height: 42px; display: block; filter: drop-shadow(0 0 5px #168cff80); }
 
 .birthday-footer p {
   color: #d98ba2;
-  font: 10px Arial, sans-serif;
-  letter-spacing: 4px;
+  font: 11px Arial, sans-serif;
+  letter-spacing: 1px;
+  margin: 0 0 10px;
 }
 
 .birthday-footer small {
@@ -883,6 +888,41 @@ button { font: inherit; }
 .telegram-open:hover,.telegram-open:focus-visible { transform:translateX(2px); box-shadow:0 0 18px rgba(65,213,244,.55); outline:2px solid #83f0ff; outline-offset:3px; }
 @media (prefers-reduced-motion: reduce) { .telegram-card,.telegram-open { transition:none; } }
 
+
+
+/* Playful extras: surprise photo, music energy, fingerprint message and final gift */
+.gallery-tools { display:flex; flex-direction:column; align-items:center; gap:8px; margin:-8px 0 22px; }
+#surprisePhoto { padding:11px 18px; border:1px solid #f08ab188; border-radius:30px; color:#ffe3ef; background:linear-gradient(120deg,#6f1d40aa,#25101dbb); box-shadow:0 0 18px #e8499130; cursor:pointer; font:11px Arial,sans-serif; letter-spacing:1px; transition:transform .2s ease,box-shadow .2s ease; }
+#surprisePhoto:hover { transform:translateY(-2px); box-shadow:0 0 25px #e8499155; }
+#surpriseCaption { color:#bda4b1; font:10px/1.6 Arial,sans-serif; }
+.player-disc { transition:box-shadow .3s ease; }
+.player-disc.spinning { animation:discSpin 3s linear infinite; box-shadow:0 0 22px #e65a9b55; }
+@keyframes discSpin { to { transform:rotate(360deg); } }
+.player-wave { height:34px; display:flex; align-items:center; justify-content:center; gap:4px; margin:14px 0 0; overflow:hidden; opacity:.45; }
+.player-wave i { display:block; width:3px; height:var(--bar); max-height:30px; border-radius:8px; background:linear-gradient(#f3a2c5,#7b3154); transform:scaleY(.35); transform-origin:center; }
+.player-wave.playing { opacity:1; }
+.player-wave.playing i { animation:waveDance .75s ease-in-out infinite alternate; animation-delay:calc(var(--n, 0) * -40ms); }
+.player-wave i:nth-child(3n) { animation-delay:-.22s; } .player-wave i:nth-child(3n + 1) { animation-delay:-.48s; }
+@keyframes waveDance { to { transform:scaleY(1); filter:brightness(1.4); } }
+.fingerprint-button { border:0; padding:0; background:transparent; cursor:pointer; }
+.fingerprint-button:focus-visible { outline:2px solid #7ceeff; outline-offset:7px; border-radius:10px; }
+.fingerprint-message { transition:color .25s ease,text-shadow .25s ease; }
+.fingerprint-message.revealed { color:#83eaff; text-shadow:0 0 12px #168cffbb; letter-spacing:2px; }
+.final-gift { margin:28px 0 24px; padding:34px 20px; border:1px solid #d98ba244; border-radius:24px; background:radial-gradient(ellipse at 50% 0%,#84284b35,transparent 68%),linear-gradient(145deg,#ffffff09,#150910a8); box-shadow:0 18px 45px #0003; }
+.final-gift h2 { margin:10px 0 24px; color:#f4d5e3; }
+.gift-button { position:relative; display:flex; align-items:center; justify-content:center; gap:12px; margin:0 auto; max-width:100%; padding:15px 22px; border:1px solid #e78ab3a8; border-radius:18px; color:#ffe7f0; background:linear-gradient(135deg,#6d1b3d99,#160b16dd); box-shadow:0 0 24px #df4a8a22,inset 0 1px #ffffff15; cursor:pointer; font:12px Arial,sans-serif; transition:transform .25s ease,box-shadow .25s ease; }
+.gift-button:hover { transform:translateY(-3px); box-shadow:0 0 30px #df4a8a44; }
+.gift-box { font-size:25px; filter:drop-shadow(0 0 8px #ff72b5); }
+.gift-sparkle { color:#ffacd0; font-size:18px; }
+.gift-message { max-width:480px; margin:24px auto 0; padding:24px 20px; border:1px solid #e78ab355; border-radius:18px; background:#0d080dbb; animation:fadeIn .55s ease both; }
+.gift-message[hidden] { display:none; }
+.gift-message h3 { color:#ffc5dc; font-size:clamp(18px,4.5vw,23px); font-weight:normal; line-height:1.5; }
+.gift-message p { color:#d9c1cc; font:13px/1.9 Arial,sans-serif; }
+.gift-stars { color:#ff8fbd; letter-spacing:4px; text-shadow:0 0 12px #ff4e9b; }
+.floating-spark { position:fixed; z-index:10002; pointer-events:none; font-size:20px; animation:sparkRise 1.15s ease-out forwards; filter:drop-shadow(0 0 7px #ff72b5); }
+@keyframes sparkRise { 0% { opacity:0; transform:translate(-50%,-20%) scale(.55) rotate(0); } 15% { opacity:1; } 100% { opacity:0; transform:translate(calc(-50% + var(--drift)), -120px) scale(1.35) rotate(25deg); } }
+@media(prefers-reduced-motion:reduce) { .player-disc.spinning,.player-wave.playing i,.floating-spark { animation:none !important; } }
+
 </style>
 </head>
 
@@ -972,6 +1012,7 @@ button { font: inherit; }
   <section class="gallery-section" id="photoGallery">
     <p class="eyebrow">MEMORIES &amp; MOMENTS</p>
     <h2>A little <em>photo</em> diary</h2>
+    <div class="gallery-tools"><button id="surprisePhoto" type="button">✦ Surprise me</button><span id="surpriseCaption">A tiny trip down memory lane</span></div>
     <div class="photo-grid">
       <button class="photo-slot" type="button" aria-label="View photo 1"><img src="./images/photo1.jpg" alt="Photo 1" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
       <button class="photo-slot" type="button" aria-label="View photo 2"><img src="./images/photo2.jpg" alt="Photo 2" loading="lazy"><span class="unicorn" aria-hidden="true">🦄</span></button>
@@ -989,9 +1030,9 @@ button { font: inherit; }
         <button class="feature-nav feature-next" type="button" aria-label="Next photo">›</button>
       </div>
       <div class="feature-copy">
-        <span class="feature-kicker">A LITTLE MEMORY</span>
-        <h3>One of my favorite moments.</h3>
-        <p>A little corner for a memory worth keeping.</p>
+        <span class="feature-kicker">مثلا چند تا عکس🎂</span>
+        <h3>باحالن ایشالا خوشت بیاد</h3>
+        <p> </p>
         <div class="feature-divider"><span>🦄</span></div>
         <p class="feature-signoff">Happy Birthday, Ronika.</p>
       </div>
@@ -1054,7 +1095,7 @@ button { font: inherit; }
 
     <div class="glass-player" aria-label="Audio player">
       <div class="player-heading">
-        <div class="player-disc">♫</div>
+        <div class="player-disc" id="playerDisc">♫</div>
         <div class="player-meta">
           <strong id="playerTrackTitle">Birthday soundtrack</strong>
           <small id="playerStatus">Ready to play</small>
@@ -1066,7 +1107,7 @@ button { font: inherit; }
         <input id="seekBar" type="range" min="0" max="1000" value="0" step="1" aria-label="Seek through song">
         <span class="player-time" id="durationTime">0:00</span>
       </div>
-      <div class="player-caption">Drag the slider to jump to any part of the song</div>
+      <div class="player-wave" id="playerWave" aria-hidden="true"><i style="--bar:8px"></i><i style="--bar:14px"></i><i style="--bar:21px"></i><i style="--bar:11px"></i><i style="--bar:27px"></i><i style="--bar:16px"></i><i style="--bar:32px"></i><i style="--bar:19px"></i><i style="--bar:12px"></i><i style="--bar:25px"></i><i style="--bar:17px"></i><i style="--bar:30px"></i><i style="--bar:10px"></i><i style="--bar:22px"></i><i style="--bar:15px"></i><i style="--bar:28px"></i><i style="--bar:12px"></i><i style="--bar:20px"></i><i style="--bar:9px"></i><i style="--bar:25px"></i><i style="--bar:16px"></i><i style="--bar:31px"></i><i style="--bar:13px"></i><i style="--bar:22px"></i></div><div class="player-caption">Drag the slider to jump to any part of the song</div>
     </div>
 
     <p class="music-note" id="musicNote">
@@ -1074,8 +1115,20 @@ button { font: inherit; }
     </p>
   </section>
 
+  <section class="final-gift" aria-label="Birthday surprise">
+    <p class="eyebrow">ONE LAST LITTLE THING</p>
+    <h2>A tiny surprise for you</h2>
+    <button type="button" id="giftButton" class="gift-button" aria-expanded="false" aria-controls="giftMessage"><span class="gift-box" aria-hidden="true">🎁</span><span>Open your little gift</span><span class="gift-sparkle" aria-hidden="true">✦</span></button>
+    <div class="gift-message" id="giftMessage" hidden>
+      <div class="gift-stars" aria-hidden="true">✦　✧　✦</div>
+      <h3>Keep being wonderfully you, Ronika. 🤍</h3>
+      <p>I hope this new year brings you more reasons to laugh, more moments worth remembering, and lots of little surprises.</p>
+      <div aria-hidden="true">🎂 ✨ 🦄</div>
+    </div>
+  </section>
+
   <footer class="birthday-footer">
-    <div class="footer-star" aria-label="Blue fingerprint" title="Fingerprint">
+    <button class="footer-star fingerprint-button" id="fingerprintButton" type="button" aria-label="Tap the blue fingerprint for a little message" title="Tap the fingerprint">
       <svg class="fingerprint-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <g stroke="#43baff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M24 5.5c-9.4 0-17 7.4-17 16.6 0 3.1.5 6.4 1.5 9.7"/>
@@ -1087,8 +1140,8 @@ button { font: inherit; }
           <path d="M24 15.5c3.9 0 7 3 7 6.7 0 4.8-.8 9.5-2.5 13.9"/>
         </g>
       </svg>
-    </div>
-    <p>MADE BY NIMA</p>
+    </button>
+    <p class="fingerprint-message" id="fingerprintMessage" aria-live="polite">Made by 0XNima</p>
     <small>A little birthday world for Ronika.</small>
     <div class="telegram-card" aria-label="Telegram contact">
       <span class="telegram-icon" aria-hidden="true">➤</span>
@@ -1402,6 +1455,73 @@ photoLightbox.addEventListener("click", (event) => {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") hideExpandedPhoto();
 });
+
+
+// Surprise me: jump to a random memory in the featured photo panel.
+const surpriseButton = document.getElementById("surprisePhoto");
+const surpriseCaption = document.getElementById("surpriseCaption");
+if (surpriseButton) surpriseButton.addEventListener("click", () => {
+  let nextIndex = Math.floor(Math.random() * featureImages.length);
+  if (featureImages.length > 1 && nextIndex === featuredIndex) nextIndex = (nextIndex + 1) % featureImages.length;
+  setFeaturedPhoto(nextIndex);
+  surpriseCaption.textContent = `Your little surprise: photo ${nextIndex + 1} ✨`;
+  document.querySelector(".photo-feature").scrollIntoView({behavior:"smooth", block:"center"});
+  burstSparkles(window.innerWidth * .5, window.innerHeight * .55, 7);
+});
+
+// Fingerprint: a tiny interactive signature.
+const fingerprintButton = document.getElementById("fingerprintButton");
+const fingerprintMessage = document.getElementById("fingerprintMessage");
+if (fingerprintButton) fingerprintButton.addEventListener("click", () => {
+  fingerprintMessage.classList.add("revealed");
+  burstSparkles(window.innerWidth / 2, window.innerHeight - 130, 9, ["💙", "✦", "✨"]);
+});
+
+// Gift box: reveal the final birthday message.
+const giftButton = document.getElementById("giftButton");
+const giftMessage = document.getElementById("giftMessage");
+if (giftButton && giftMessage) giftButton.addEventListener("click", () => {
+  const isOpen = giftButton.getAttribute("aria-expanded") === "true";
+  giftButton.setAttribute("aria-expanded", String(!isOpen));
+  giftMessage.hidden = isOpen;
+  giftButton.querySelector("span:nth-child(2)").textContent = isOpen ? "Open your little gift" : "Your little gift is open!";
+  if (!isOpen) {
+    burstSparkles(window.innerWidth / 2, window.innerHeight * .65, 16, ["✨", "💗", "✦", "🎉"]);
+    giftMessage.scrollIntoView({behavior:"smooth", block:"center"});
+  }
+});
+
+// Small hearts and stars appear when the page is tapped/clicked.
+function burstSparkles(x, y, count = 5, choices = ["♡", "✦", "✨", "💗"]) {
+  for (let i = 0; i < count; i++) {
+    const spark = document.createElement("span");
+    spark.className = "floating-spark";
+    spark.textContent = choices[Math.floor(Math.random() * choices.length)];
+    spark.style.left = `${x + (Math.random() - .5) * 90}px`;
+    spark.style.top = `${y + (Math.random() - .5) * 28}px`;
+    spark.style.setProperty("--drift", `${(Math.random() - .5) * 100}px`);
+    spark.style.animationDelay = `${Math.random() * .16}s`;
+    document.body.appendChild(spark);
+    window.setTimeout(() => spark.remove(), 1500);
+  }
+}
+document.addEventListener("click", (event) => {
+  if (event.target.closest("button, a, input, label, .photo-slot, .feature-image-wrap, .photo-lightbox")) return;
+  if (Math.random() < .72) burstSparkles(event.clientX, event.clientY, 3);
+});
+
+// Let the record and waveform respond to actual playback.
+const playerDisc = document.getElementById("playerDisc");
+const playerWave = document.getElementById("playerWave");
+function updateMusicMotion() {
+  const playing = Boolean(currentAudio && !currentAudio.paused);
+  if (playerDisc) playerDisc.classList.toggle("spinning", playing);
+  if (playerWave) playerWave.classList.toggle("playing", playing);
+}
+allMusic.forEach(audio => {
+  ["play", "pause", "ended", "waiting"].forEach(name => audio.addEventListener(name, updateMusicMotion));
+});
+
 </script>
 
 </body>
