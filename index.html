@@ -30,28 +30,6 @@ body {
   color: white;
 }
 
-/* Soft, slowly-shifting color haze as you scroll through the birthday page */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -18%;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 18% 22%, #8d234333, transparent 42%),
-    radial-gradient(ellipse at 82% 64%, #6d315b2b, transparent 45%),
-    radial-gradient(ellipse at 50% 95%, #254c5b22, transparent 42%);
-  background-size: 140% 140%;
-  animation: birthdayHaze 18s ease-in-out infinite alternate;
-  transform: translate3d(0, calc(var(--scroll-progress, 0) * -55px), 0);
-  transition: transform .35s ease-out;
-}
-@keyframes birthdayHaze {
-  0% { background-position: 0% 0%, 100% 40%, 50% 100%; filter: hue-rotate(0deg); }
-  50% { background-position: 60% 30%, 20% 70%, 80% 40%; filter: hue-rotate(12deg); }
-  100% { background-position: 100% 60%, 0% 100%, 20% 0%; filter: hue-rotate(-10deg); }
-}
-
 button { font: inherit; }
 
 .scene {
@@ -810,12 +788,12 @@ button { font: inherit; }
       </button>
       <button class="track" data-track="music3">
         <span class="track-number">03</span>
-        <span class="track-info"><strong>notion [ slowed + reverb ] — the rare occasions</strong><small>notion [ slowed + reverb ]   the rare occasions.m4a</small></span>
+        <span class="track-info"><strong>notion [ slowed + reverb ] the rare occasions</strong><small>notion [ slowed + reverb ]   the rare occasions.m4a</small></span>
         <span class="track-action">▶</span>
       </button>
       <button class="track" data-track="music4">
         <span class="track-number">04</span>
-        <span class="track-info"><strong>SoFaygo — Good Day</strong><small>03. SoFaygo - Good Day.flac</small></span>
+        <span class="track-info"><strong>SoFaygo - Good Day</strong><small>03. SoFaygo - Good Day.flac</small></span>
         <span class="track-action">▶</span>
       </button>
       <div class="track upload-track">
@@ -873,16 +851,6 @@ button { font: inherit; }
 </div>
 
 <script>
-
-// Update the background haze based on how far down the page has been scrolled.
-function updateScrollHaze() {
-  const maxScroll = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-  const progress = Math.min(1, Math.max(0, window.scrollY / maxScroll));
-  document.documentElement.style.setProperty("--scroll-progress", progress.toFixed(3));
-}
-window.addEventListener("scroll", updateScrollHaze, { passive: true });
-window.addEventListener("resize", updateScrollHaze);
-updateScrollHaze();
 
 const moodScreen = document.getElementById("moodScreen");
 const birthdaySite = document.getElementById("birthdaySite");
@@ -1130,6 +1098,13 @@ allMusic.forEach((audio) => {
     audio.addEventListener(eventName, () => {
       if (audio === currentAudio) refreshPlayer();
     });
+  });
+  audio.addEventListener("error", () => {
+    if (audio === currentAudio) {
+      const failedUrl = audio.currentSrc || audio.querySelector("source")?.src || "unknown audio URL";
+      musicNote.textContent = "Audio failed to load. Check the exact filename: " + decodeURIComponent(failedUrl.split("/").pop());
+      playerStatus.textContent = "Audio load error";
+    }
   });
 });
 </script>
