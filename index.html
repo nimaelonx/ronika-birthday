@@ -545,10 +545,140 @@ button { font: inherit; }
     scroll-behavior: auto !important;
   }
 }
+
+
+/* FIRST SCREEN: MOOD CHECK-IN */
+#moodScreen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 18px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 18% 18%, #9d315b66, transparent 42%),
+    radial-gradient(ellipse at 82% 82%, #5a153d77, transparent 46%),
+    linear-gradient(145deg, #310d26, #671b3e 48%, #260c25);
+}
+#moodScreen::before, #moodScreen::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(2px);
+  pointer-events: none;
+}
+#moodScreen::before {
+  width: 240px; height: 240px; top: -80px; right: -65px;
+  background: #d46c9566;
+}
+#moodScreen::after {
+  width: 280px; height: 280px; bottom: -115px; left: -90px;
+  background: #8b477c55;
+}
+.mood-card {
+  position: relative;
+  z-index: 1;
+  width: min(520px, 100%);
+  padding: clamp(28px, 7vw, 48px) clamp(18px, 5vw, 36px);
+  text-align: center;
+  border-radius: 28px;
+  border: 1px solid #a6d9e566;
+  background: linear-gradient(145deg, #173d50a8, #174b5c73 55%, #172f48a8);
+  box-shadow: 0 25px 80px #09071466, inset 0 1px 0 #ffffff2b;
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+.mood-kicker {
+  margin: 0 0 16px;
+  color: #b8dce8;
+  font: 10px/1.8 Arial, sans-serif;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+.mood-question {
+  margin: 0;
+  color: #f9f5fa;
+  font-size: clamp(32px, 8vw, 48px);
+  line-height: 1.15;
+  font-weight: normal;
+  text-shadow: 0 3px 24px #c1e8ff22;
+}
+.mood-message {
+  margin: 19px 0 30px;
+  color: #f2c5d6;
+  font: 14px/1.8 Arial, sans-serif;
+  letter-spacing: 1.2px;
+}
+.mood-answers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 64px;
+  position: relative;
+}
+.mood-answer {
+  min-height: 52px;
+  flex: 1 1 0;
+  padding: 13px 12px;
+  border-radius: 17px;
+  border: 1px solid #d2edf077;
+  color: #f8f7ff;
+  background: linear-gradient(145deg, #ffffff20, #b5dce51a);
+  box-shadow: 0 9px 24px #0715212b, inset 0 1px 0 #ffffff25;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font: 12px/1.5 Arial, sans-serif;
+  cursor: pointer;
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+#moodHappy { order: 2; }
+#moodSad { order: 1; }
+#moodHappy:hover {
+  background: linear-gradient(145deg, #ffffff35, #c1e7f033);
+  border-color: #f1d2e2aa;
+  transform: translateY(-2px);
+}
+#moodSad { white-space: nowrap; }
+.mood-footnote {
+  margin: 24px 0 0;
+  color: #d0e8edb8;
+  font: 10px/1.8 Arial, sans-serif;
+  letter-spacing: 2px;
+}
+#birthdaySite { display: none; width: 100%; }
+#birthdaySite.visible { display: block; }
+@media (max-width: 380px) {
+  .mood-answers { gap: 8px; }
+  .mood-answer { padding: 12px 8px; font-size: 11px; }
+  .mood-message { font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mood-answer { transition: none; }
+}
+
 </style>
 </head>
 
 <body>
+
+<section id="moodScreen" aria-label="Mood check-in">
+  <div class="mood-card">
+    <p class="mood-kicker">A LITTLE CHECK-IN</p>
+    <h1 class="mood-question">How are you feeling?</h1>
+    <p class="mood-message">Be happy, Ronika. ♡</p>
+    <div class="mood-answers" id="moodAnswers">
+      <button class="mood-answer" id="moodSad" type="button">No, I'm sad</button>
+      <button class="mood-answer" id="moodHappy" type="button">I'm amaaaazing!</button>
+    </div>
+    <p class="mood-footnote">A LITTLE LOVE, JUST FOR YOU</p>
+  </div>
+</section>
+
+<div id="birthdaySite">
 
 <!-- Keep all six audio tracks in the same repository folder as index.html -->
 <audio id="birthdayMusic" preload="auto" loop>
@@ -605,7 +735,7 @@ button { font: inherit; }
 <section class="experience" id="experience">
 
   <header class="hero">
-    <p class="eyebrow">fot roki</p>
+    <p class="eyebrow">A DAY JUST FOR YOU</p>
     <h1>Happy Birthday,<br><span>Ronika.</span></h1>
     <div class="birthday-message-card">
       <div class="message-heart">♥</div>
@@ -719,7 +849,52 @@ button { font: inherit; }
 
 </section>
 
+</div>
+
 <script>
+
+const moodScreen = document.getElementById("moodScreen");
+const birthdaySite = document.getElementById("birthdaySite");
+const moodHappy = document.getElementById("moodHappy");
+const moodSad = document.getElementById("moodSad");
+const moodAnswers = document.getElementById("moodAnswers");
+
+moodHappy.addEventListener("click", () => {
+  moodScreen.style.opacity = "0";
+  moodScreen.style.transition = "opacity .45s ease";
+  window.setTimeout(() => {
+    moodScreen.style.display = "none";
+    birthdaySite.classList.add("visible");
+  }, 450);
+});
+
+function moveSadButton() {
+  const pad = 12;
+  const maxX = Math.max(pad, window.innerWidth - moodSad.offsetWidth - pad);
+  const maxY = Math.max(pad, window.innerHeight - moodSad.offsetHeight - pad);
+  const x = pad + Math.random() * Math.max(0, maxX - pad);
+  const y = pad + Math.random() * Math.max(0, maxY - pad);
+  moodSad.style.position = "fixed";
+  moodSad.style.left = `${x}px`;
+  moodSad.style.top = `${y}px`;
+  moodSad.style.zIndex = "10001";
+  moodSad.style.flex = "none";
+  moodSad.style.width = "min(190px, 46vw)";
+}
+
+moodSad.addEventListener("pointerenter", moveSadButton);
+moodSad.addEventListener("pointerdown", (event) => {
+  event.preventDefault();
+  moveSadButton();
+});
+moodSad.addEventListener("click", (event) => {
+  event.preventDefault();
+  moveSadButton();
+});
+window.addEventListener("resize", () => {
+  if (moodSad.style.position === "fixed") moveSadButton();
+});
+
 const scene = document.getElementById("scene");
 const envelope = document.getElementById("envelope");
 const hint = document.getElementById("hint");
